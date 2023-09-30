@@ -1,0 +1,39 @@
+.app {
+    height: 100svh;
+    width: 100svw;
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    &__header
+    {
+        width: 100%;
+        flex-basis: 4rem;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        box-shadow: 1px 0 5px 2px #ccc;
+
+        .header__title {
+          padding: 0 1rem;
+        }
+
+        .header__menu {
+          flex-grow: 1;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: flex-start;
+          gap: 1rem;
+          padding: 0 1rem;
+        }
+    }
+
+    &__content {
+        width: 100%;
+        flex-grow: 1;
+        padding: 0.25rem 1rem;
+        background-color: #3f51b50e;
+    }
+}

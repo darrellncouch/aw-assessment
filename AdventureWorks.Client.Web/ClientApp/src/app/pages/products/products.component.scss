@@ -1,0 +1,52 @@
+
+.page-title {
+  height: 1.5rem;
+}
+
+.product-table {
+  background-color: #fff;
+  width: calc(100% - 2rem);
+  height: calc(100% - 3.5rem);
+  max-height: calc(100svh - 6rem);
+  display: flex;
+  flex-flow: row wrap;
+
+
+  &__header {
+    height: 2rem;
+    flex-basis: 100%;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.5rem;
+  }
+
+  &__data {
+    flex-basis: 100%;
+    height: calc(100% - 5rem);
+    overflow: auto;
+    background-color: #eee;
+  }
+
+  &__item {
+    height: 3rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.5rem;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ccc;
+    }
+
+  }
+
+  &__pager {
+    height: 3rem;
+    flex-basis: 100%;
+    border-top: 1px solid #ccc;
+  }
+}

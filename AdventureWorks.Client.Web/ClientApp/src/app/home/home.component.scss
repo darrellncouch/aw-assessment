@@ -1,0 +1,9 @@
+.options {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+
+  &__header {
+    flex-basis: 100%;
+  }
+}

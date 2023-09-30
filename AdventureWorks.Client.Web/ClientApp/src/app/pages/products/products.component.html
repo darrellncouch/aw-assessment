@@ -1,0 +1,25 @@
+<h3 class="page-title">Products</h3>
+<div class="product-table">
+  <div class="product-table__header">
+    <span style="flex-basis: 4rem;">No.</span>
+    <span style="flex-basis: 10rem;">Name</span>
+  </div>
+  <div class="product-table__data" >
+
+    <div  class="product-table__item" *ngFor="let product of dataSource">
+      <span style="flex-basis: 4rem;">{{product.productId}}</span>
+      <span style="flex-basis: 10rem;">{{product.name}}</span>
+    </div>
+
+  </div>
+  <div class="product-table__pager">
+    <mat-paginator [length]="count"
+        [pageSize]="size"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="handlePageEvent($event)"
+        [showFirstLastButtons]="true"
+        aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>
