@@ -1,17 +1,37 @@
-<h3 class="page-title">Products</h3>
-<div class="product-table">
-  <div class="product-table__header">
-    <span style="flex-basis: 4rem;">No.</span>
-    <span style="flex-basis: 10rem;">Name</span>
+<div class="page">
+  <div class="page-title">
+    Products <button mat-raised-button color="primary" class="add-btn"><mat-icon>add</mat-icon>Add New</button>
   </div>
-  <div class="product-table__data" >
+  <div class="product-table">
+    <div class="product-table__header">
+      <span style="flex-basis: 20%;">No.</span>
+      <span style="flex-basis: 20%;">Name</span>
+      <span style="flex-basis: 20%;">Model Name</span>
+      <span style="flex-basis: 20%;">List Price</span>
+    </div>
+    <div class="product-table__data" >
 
-    <div  class="product-table__item" *ngFor="let product of dataSource">
-      <span style="flex-basis: 4rem;">{{product.productId}}</span>
-      <span style="flex-basis: 10rem;">{{product.name}}</span>
+      <div  class="product-table__item" *ngFor="let product of dataSource">
+        <span style="flex-basis: 20%;">{{product.productId}}</span>
+        <span style="flex-basis: 20%;">{{product.name}}</span>
+        <span style="flex-basis: 20%;">{{product.productModelId == null || product.productModelId == 0 ? "N/A" : product.modelName}}</span>
+        <span style="flex-basis: 20%;">{{product.listPrice | currency}}</span>
+
+        <div style="flex-basis: 20%; display: flex; flex-flow: row nowrap; gap: 0.5rem">
+          <button mat-mini-fab color="primary">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="remove_red_eye"></mat-icon>
+          </button>
+          <button mat-mini-fab color="primary">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+          </button>
+
+        </div>
+
     </div>
 
+
   </div>
+
   <div class="product-table__pager">
     <mat-paginator [length]="count"
         [pageSize]="size"
