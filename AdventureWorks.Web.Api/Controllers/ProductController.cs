@@ -17,9 +17,9 @@ namespace AdventureWorks.Web.Api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<ActionResult<PagedResult<ProductInformationDto>>> GetPagedProducts([FromQuery] int pageSize = 10, [FromQuery] int pageNumber = 0)
+        public async Task<ActionResult<PagedResult<ProductSummaryDto>>> GetPagedProducts([FromQuery] int pageSize = 10, [FromQuery] int pageNumber = 0)
         {
-            var result = await productManager.GetProducts(new PagedRequest { PageSize = pageSize, PageIndex = pageNumber });
+            var result = await productManager.GetProductSummaries(new PagedRequest { PageSize = pageSize, PageIndex = pageNumber });
 
             return result.IsFailure
                 ? BadRequest(result.Error)

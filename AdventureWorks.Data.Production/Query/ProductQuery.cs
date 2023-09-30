@@ -60,6 +60,5 @@ namespace AdventureWorks.Data.Production.Query
                 return Result.Fail<PagedResult<Product>>(ex.Message);
             }
         }
-
     }
 }

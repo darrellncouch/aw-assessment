@@ -1,20 +1,36 @@
 
+.page {
+  height: 100%;
+  width: 100vw;
+}
+
 .page-title {
-  height: 1.5rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 2rem;
+
+  .add-btn {
+    font-size: 1rem;
+  }
 }
 
 .product-table {
   background-color: #fff;
   width: calc(100% - 2rem);
-  height: calc(100% - 3.5rem);
-  max-height: calc(100svh - 6rem);
+  max-height: calc(100svh - 10rem);
   display: flex;
-  flex-flow: row wrap;
+  align-items: flex-start;
+  flex-flow: column;
+  overflow: hidden;
+  padding-bottom: 1px;
 
 
   &__header {
-    height: 2rem;
-    flex-basis: 100%;
+    flex-basis: 2rem;
+    width: 100%;
     border-bottom: 1px solid #ccc;
     display: flex;
     flex-flow: row nowrap;
@@ -24,10 +40,10 @@
   }
 
   &__data {
-    flex-basis: 100%;
-    height: calc(100% - 5rem);
+    width: 100%;
+    //max-height: calc(100% - 4rem);
+    flex-grow: 1;
     overflow: auto;
-    background-color: #eee;
   }
 
   &__item {
@@ -46,7 +62,11 @@
 
   &__pager {
     height: 3rem;
-    flex-basis: 100%;
+    width: 100%;
     border-top: 1px solid #ccc;
   }
+}
+
+.icon-btn {
+  background-color: #fff;
 }

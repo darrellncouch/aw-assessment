@@ -67,6 +67,69 @@ namespace AdventureWorks.Logic.Core
             return Result.Ok(productInfo);
         }
 
+        public async Task<Result<PagedResult<ProductSummaryDto>>> GetProductSummaries(PagedRequest req)
+        {
+            var countResult = await query.GetProductCount();
+
+            if (countResult.IsFailure)
+            {
+                LogError("ProductManager/GetProductSummaries", countResult.Error);
+                return Result.Fail<PagedResult<ProductSummaryDto>>("Unexpected error. Please try again or reach out to customer service.");
+            }
+
+            var hasNextPage = (int pageNumber) => countResult.Value - req.PageSize * (pageNumber) > 0;
+
+            if(req.PageIndex != 0 && !hasNextPage(req.PageIndex))
+            {
+                return Result.Fail<PagedResult<ProductSummaryDto>>("End of results");
+            }
+
+            var productResult = await query.GetProducts(req);
+
+            if (productResult.IsFailure)
+            {
+                LogError("ProductManager/GetProductSummaries", productResult.Error);
+                return Result.Fail<PagedResult<ProductSummaryDto>>(GenericErrorMessage);
+            }
+
+            var summary = productResult.Value.Value
+                .Select(x => new ProductSummaryDto
+                {
+                    ProductId = x.ProductId,
+                    ProductModelId = x.ProductModelId,
+                    Name = x.Name,
+                    ListPrice = x.ListPrice,
+                }).ToList();
+
+            foreach (var product in summary)
+            {
+                if (!product.ProductModelId.HasValue)
+                {
+                    continue;
+                }
+
+                var modelResult = await modelQuery.GetById((int)product.ProductModelId);
+
+                if (modelResult.IsFailure)
+                {
+                    LogError("ProductManager/GetProductSummaries", modelResult.Error);
+                    return Result.Fail<PagedResult<ProductSummaryDto>>(GenericErrorMessage);
+                }
+
+                product.ModelName = modelResult.Value.Name;
+            }
+
+            return Result.Ok(new PagedResult<ProductSummaryDto>
+            {
+                PageCount = Math.Ceiling((decimal)(countResult.Value / req.PageSize)),
+                TotalCount = countResult.Value,
+                HasNextPage = hasNextPage(req.PageIndex),
+                PageIndex = req.PageIndex,
+                PageSize = req.PageSize,
+                Value = summary
+            });
+        }
+
         public async Task<Result<PagedResult<ProductDto>>> GetProducts(PagedRequest req)
         {
             var countResult = await query.GetProductCount();
@@ -110,5 +173,6 @@ namespace AdventureWorks.Logic.Core
         {
             Console.WriteLine($"{DateTimeOffset.UtcNow} - {origin}: {error}");
         }
+
     }
 }
