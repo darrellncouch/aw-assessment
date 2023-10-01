@@ -15,6 +15,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButton, MatButtonModule} from '@angular/material/button';
+import { ProductOverviewComponent } from './pages/product-overview/product-overview.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import {MatButton, MatButtonModule} from '@angular/material/button';
     HomeComponent,
     ProductsComponent,
     ActionTileComponent,
+    ProductOverviewComponent,
+    EditProductComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,

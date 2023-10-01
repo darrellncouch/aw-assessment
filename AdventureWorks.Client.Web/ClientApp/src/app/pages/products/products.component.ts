@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { IProduct } from 'src/app/core/IProduct';
 import { IProductSummary } from 'src/app/core/IProductSummary';
@@ -23,7 +24,10 @@ export class ProductsComponent {
 
   private unsubAll: Subject<any>;
 
-  constructor(private readonly productService: ProductService) {
+  constructor(
+    private readonly productService: ProductService,
+    private readonly router: Router
+  ) {
     this.unsubAll = new Subject();
   }
 
@@ -47,5 +51,13 @@ export class ProductsComponent {
         this.count = x.totalCount;
         this.hasNextpage = x.hasNextPage;
       })
+  }
+
+  public onViewClick(id: number) {
+    this.router.navigate(['/product-view'], {queryParams: {id: id}});
+  }
+
+  public onEditClick(id: number) {
+    this.router.navigate(['/products/edit'], {queryParams: {id: id}});
   }
 }

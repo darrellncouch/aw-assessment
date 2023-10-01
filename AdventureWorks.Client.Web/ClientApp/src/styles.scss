@@ -7,3 +7,17 @@ html, body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.page {
+  height: 100%;
+  width: 100vw;
+}
+
+.page-title {
+  height: 3rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 2rem;
+}

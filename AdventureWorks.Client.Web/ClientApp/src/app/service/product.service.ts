@@ -1,16 +1,22 @@
-import { NumberSymbol } from '@angular/common';
-import { IPagedRequest } from './../core/IPagedRequest';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IPagedResult } from '../core/IPagedResult';
-import { IProduct } from '../core/IProduct';
 import { IProductSummary } from '../core/IProductSummary';
+import { IProductInformation } from '../core/IProductInformation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+
+  private targetProduct = new BehaviorSubject<IProductInformation>({} as IProductInformation);
+  public _targetProduct = this.targetProduct.asObservable();
+
+  public updateTarget(product: IProductInformation)
+  {
+    this.targetProduct.next(product);
+  }
 
   private readonly apiUrl = "https://localhost:7001";
   constructor(private readonly httpClient: HttpClient) { }
@@ -19,5 +25,9 @@ export class ProductService {
     return this.httpClient.get<IPagedResult<IProductSummary>>(`${this.apiUrl}/product`, {
       params: new HttpParams().set("pageSize", size).set("pageNumber", page)
     })
+  }
+
+  public getProductById(id: number): Observable<IProductInformation> {
+    return this.httpClient.get<IProductInformation>(`${this.apiUrl}/product/${id}`);
   }
 }

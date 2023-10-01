@@ -1,0 +1,35 @@
+<div class="page overview">
+  <div class="page-title">
+    Product : {{product.details.productNumber}} ({{product.details.name}})
+
+    <button mat-raised-button color="primary" (click)="updateClickHandler()">Update</button>
+  </div>
+
+  <div class="product">
+    <span>Name: {{product.details.name}}</span>
+    <span>Model Name: {{product.model == null ? "N/A" : product.model.name}}</span>
+    <span>List: Price: {{product.details.listPrice | currency}}</span>
+  </div>
+
+  <div class="reviews">
+    <span>Ratings (Average: {{product.averageRating ?? "N/A"}}/5)</span>
+    <div *ngIf="product.reviews.length == 0; else reviews" class="no-reviews">No reviews yet</div>
+    <ng-template #reviews>
+
+        <div *ngFor="let review of product.reviews" class="reviews__item">
+
+          <div class="user">
+            <span>{{review.rating}}/5</span>
+            <span>{{review.reviewerName}}</span>
+            <span>{{review.emailAddress}}</span>
+            <span>{{review.modifiedDate | date}}</span>
+          </div>
+
+          <div class="comment">
+            {{review.comments}}
+          </div>
+        </div>
+
+    </ng-template>
+  </div>
+</div>
