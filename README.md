@@ -12,11 +12,11 @@ Front end will take a while on initial run as its installing node modules and pa
 # Some things I would change given more time
 
 ### Logic
-*Actual Logging
-*Validation Checks
-*Unit Tests
+* Actual Logging
+* Validation Checks
+* Unit Tests
 
 ### Front End
-*Better Error Handling
-*combine Add and Edit pages to use same component
-*Better Styling
+* Better Error Handling
+* combine Add and Edit pages to use same component
+* Better Styling
