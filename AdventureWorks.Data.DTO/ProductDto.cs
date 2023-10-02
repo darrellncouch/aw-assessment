@@ -6,7 +6,7 @@
 
         public string Name { get; set; } = null!;
 
-        public string ProductNumber { get; set; } = null!;
+        public string? ProductNumber { get; set; } = string.Empty!;
 
         public bool? MakeFlag { get; set; }
 

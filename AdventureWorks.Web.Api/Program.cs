@@ -6,6 +6,8 @@ using AdventureWorks.Web.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorks.Logic.Core;
 using AdventureWorks.Logic.Core.Interfaces;
+using AdventureWorks.Data.Production.Interfaces.Repository;
+using AdventureWorks.Data.Production.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +43,7 @@ builder.Services.AddDbContext<AdventureWorks2022Context>(options => options.UseS
 builder.Services.AddScoped<IProductQuery, ProductQuery>();
 builder.Services.AddScoped<IProductModelQuery, ProductModelQuery>();
 builder.Services.AddScoped<IProductReviewQuery, ProductReviewQuery>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddScoped<IProductManager, ProductManager>();
 

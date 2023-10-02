@@ -1,6 +1,6 @@
 <div class="page">
   <div class="page-title">
-    Products <button mat-raised-button color="primary" class="add-btn"><mat-icon>add</mat-icon>Add New</button>
+    Products <button mat-raised-button color="primary" routerLink="/products/add" class="add-btn"><mat-icon>add</mat-icon>Add New</button>
   </div>
   <div class="product-table">
     <div class="product-table__header">
@@ -18,10 +18,10 @@
         <span style="flex-basis: 20%;">{{product.listPrice | currency}}</span>
 
         <div style="flex-basis: 20%; display: flex; flex-flow: row nowrap; gap: 0.5rem">
-          <button mat-mini-fab color="primary">
+          <button mat-mini-fab color="primary" (click)="onViewClick(product.productId)">
             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="remove_red_eye"></mat-icon>
           </button>
-          <button mat-mini-fab color="primary">
+          <button mat-mini-fab color="primary" (click)="onEditClick(product.productId)">
             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
           </button>
 

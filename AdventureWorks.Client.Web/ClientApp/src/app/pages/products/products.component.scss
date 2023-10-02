@@ -1,24 +1,12 @@
+@import "../../../sass/pages/page";
+@import "../../../sass/abstracts/variables";
 
-.page {
-  height: 100%;
-  width: 100vw;
-}
-
-.page-title {
-  height: 3rem;
-  font-size: 1.5rem;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  gap: 2rem;
-
-  .add-btn {
-    font-size: 1rem;
-  }
+.add-btn {
+  font-size: 1rem;
 }
 
 .product-table {
-  background-color: #fff;
+  background-color: $forground;
   width: calc(100% - 2rem);
   max-height: calc(100svh - 10rem);
   display: flex;
@@ -26,12 +14,13 @@
   flex-flow: column;
   overflow: hidden;
   padding-bottom: 1px;
+  box-shadow: $box-shadow;
 
 
   &__header {
     flex-basis: 2rem;
     width: 100%;
-    border-bottom: 1px solid #ccc;
+    border-bottom: $border;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -55,7 +44,7 @@
     padding: 0 0.5rem;
 
     &:not(:last-child) {
-      border-bottom: 1px solid #ccc;
+      border-bottom: $border;
     }
 
   }
@@ -68,5 +57,5 @@
 }
 
 .icon-btn {
-  background-color: #fff;
+  background-color: $forground;
 }

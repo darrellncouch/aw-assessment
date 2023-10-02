@@ -1,0 +1,65 @@
+@import "../../../sass/abstracts/variables";
+@import "../../../sass/pages/page";
+@import "../../../sass/components/card";
+@import "../../../sass/components/form-btn-group";
+
+.edit-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  overflow: auto;
+}
+
+.product-form {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2rem;
+}
+
+.product-model {
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+
+  &__header {
+    font-size: 1rem;
+  }
+
+  &__selector {
+    width: 25%;
+  }
+
+  &__content {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 3rem;
+    font-size: 1rem;
+  }
+
+}
+
+.form-section {
+  flex-basis: calc(33.33% - 1.5rem);
+  max-width: calc(33.33% - 1.5rem);
+  display: flex;
+  flex-direction: column;
+
+  .split {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: space-between;
+
+    * {
+      flex-basis: calc(50% - 0.5rem);
+    }
+  }
+
+  .measurement-pair {
+    width: 25%;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 0.5rem;
+  }
+}

@@ -1,0 +1,61 @@
+@import "../../../sass/pages/page";
+
+.overview {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product {
+  width: calc(100% - 4rem);
+  background-color: #fff;
+  border-radius: 2px;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+
+.reviews {
+  display: flex;
+  flex-flow: column;
+  background-color: #fff;
+  border-radius: 2px;
+  padding: 1rem;
+  width: calc(100% - 4rem);
+  gap: 1rem;
+
+  &__item {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 1px #ccc;
+
+
+    .user {
+      border-right: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      flex-basis: 15%;
+    }
+
+    .comment {
+      flex-basis: 85%;
+      padding: 1rem;
+    }
+  }
+}
+
+.no-reviews {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+}

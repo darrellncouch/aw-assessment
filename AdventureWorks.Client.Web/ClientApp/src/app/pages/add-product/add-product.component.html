@@ -1,0 +1,194 @@
+<div class="page add-page">
+  <div class="page-title">Add New Product</div>
+
+  <div class="product-form card">
+
+    <div class="form-section">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input required matInput [(ngModel)]="product.name" >
+      </mat-form-field>
+
+      <div class="split">
+        <mat-form-field appearance="outline">
+          <mat-label>Product Number</mat-label>
+          <input required matInput [(ngModel)]="product.productNumber">
+        </mat-form-field>
+
+        <div class="split">
+          <mat-checkbox class="example-margin" [(ngModel)]="product.makeFlag">
+                Make
+          </mat-checkbox>
+
+          <mat-checkbox class="example-margin" [(ngModel)]="product.finishedGoodsFlag">
+                Finished Goods
+          </mat-checkbox>
+        </div>
+
+      </div>
+
+      <div class="split">
+        <mat-form-field appearance="outline">
+          <mat-label>Color</mat-label>
+          <input matInput [(ngModel)]="product.color">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Days To Manufacure</mat-label>
+          <input matInput type="number" [(ngModel)]="product.daysToManufacture">
+        </mat-form-field>
+      </div>
+
+      <div class="split">
+        <mat-form-field appearance="outline">
+          <mat-label>Safety Stock Level</mat-label>
+          <input required type="number" matInput [(ngModel)]="product.safetyStockLevel">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Reorder Level</mat-label>
+          <input required type="number" matInput [(ngModel)]="product.reorderPoint">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-section">
+
+      <div class="split">
+        <mat-form-field appearance="outline">
+          <mat-label>List Price</mat-label>
+          <input required type="number" matInput [(ngModel)]="product.listPrice">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Standard Cost</mat-label>
+          <input required  type="number" matInput [(ngModel)]="product.standardCost">
+        </mat-form-field>
+      </div>
+
+      <div class="split">
+
+        <div class="measurement-pair">
+            <mat-form-field appearance="outline" style="flex-basis: 50%">
+              <mat-label>Size</mat-label>
+              <input type="number" matInput [(ngModel)]="product.size">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="flex-basis: 50%">
+              <mat-label>Unit</mat-label>
+              <mat-select [(ngModel)]="product.sizeUnitMeasureCode">
+                <mat-option *ngFor="let unit of sizeUnits" [value]="unit">{{unit}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+        </div>
+
+        <div class="measurement-pair">
+          <mat-form-field appearance="outline" style="flex-basis: 50%;">
+            <mat-label>Weight</mat-label>
+            <input type="number" matInput [(ngModel)]="product.weight">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="flex-basis: 50%">
+            <mat-label>Unit</mat-label>
+            <mat-select [(ngModel)]="product.weightUnitMeasureCode">
+              <mat-option *ngFor="let unit of weightUnits" [value]="unit">{{unit}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Product Line</mat-label>
+        <input matInput [(ngModel)]="product.productLine" >
+      </mat-form-field>
+
+      <div class="split">
+        <mat-form-field appearance="outline">
+          <mat-label>Class</mat-label>
+          <input matInput [(ngModel)]="product.class" >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Style</mat-label>
+          <input matInput [(ngModel)]="product.style" >
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div class="form-section">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Prduct Sub-Category ID</mat-label>
+        <input matInput [(ngModel)]="product.productSubcategoryId" >
+      </mat-form-field>
+
+      <div class="split">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sell Start Date</mat-label>
+          <input matInput required [matDatepicker]="startPicker" [(ngModel)]="product.sellStartDate">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sell End Date</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="product.sellEndDate">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+
+      <div class="split">
+        <mat-form-field appearance="outline">
+          <mat-label>Discontinue Date</mat-label>
+          <input matInput [matDatepicker]="discontinuePicker" [(ngModel)]="product.discontinuedDate">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="discontinuePicker"></mat-datepicker-toggle>
+          <mat-datepicker #discontinuePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="product-model card">
+    <span class="product-model__header">Product Model</span>
+
+    <mat-form-field appearance="outline" class="product-model__selector">
+      <mat-label>Select Product Model</mat-label>
+      <mat-select [ngModel]="product.productModelId" >
+        <mat-option *ngFor="let model of productModels"
+                    [value]="model.productModelId"
+                    (onSelectionChange)="productModelChangeHandler(model.productModelId)">
+          {{model.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="product-model__content">
+
+      <span>Name : {{selectedProductModel.name || "N/A"}}</span>
+      <span>Instructions: {{selectedProductModel.instructions || "N/A"}}</span>
+      <span>Row Guid: {{selectedProductModel.guid || "N/A"}}</span>
+      <span>last Modified Date: {{(selectedProductModel.modifiedDate | date ) ?? "N/A"}}</span>
+
+
+      <span style="flex-basis: 100%;">Catalog Desctiption: {{selectedProductModel.catalogDescription || "N/A"}}</span>
+
+    </div>
+  </div>
+
+  <div class="form-btn-group page-item">
+    <button mat-stroked-button color="danger" routerLink="/">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+  </div>
+
+</div>
