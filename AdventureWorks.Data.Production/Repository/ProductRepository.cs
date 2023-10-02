@@ -1,6 +1,7 @@
 ﻿using AdventureWorks.Data.Common;
 using AdventureWorks.Data.Production.EntityFramework;
 using AdventureWorks.Data.Production.Interfaces.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdventureWorks.Data.Production.Repository
 {
@@ -17,7 +18,7 @@ namespace AdventureWorks.Data.Production.Repository
         {
             try
             {
-                await context.Products.AddAsync(product);
+                var result = await context.Products.AddAsync(product);
                 await context.SaveChangesAsync();
 
                 return Result.Ok(product.ProductId);

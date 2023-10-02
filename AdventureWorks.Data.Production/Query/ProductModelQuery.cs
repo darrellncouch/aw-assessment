@@ -31,5 +31,18 @@ namespace AdventureWorks.Data.Production.Query
                 return Result.Fail<ProductModel>(ex.Message);
             }
         }
+
+        public async Task<Result<List<ProductModel>>> GetAll()
+        {
+            try
+            {
+                var result = await context.ProductModels.OrderBy(x => x.Name).ToListAsync();
+                return Result.Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return Result.Fail<List<ProductModel>>(ex.Message);
+            }
+        }
     }
 }

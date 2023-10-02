@@ -3,9 +3,9 @@ import { PageEvent } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { IProduct } from 'src/app/core/IProduct';
-import { IProductSummary } from 'src/app/core/IProductSummary';
-import { PagedRequest } from 'src/app/core/PagedRequest';
+import { IProduct } from 'src/core/IProduct';
+import { IProductSummary } from 'src/core/IProductSummary';
+import { PagedRequest } from 'src/core/PagedRequest';
 import { ProductService } from 'src/app/service/product.service';
 
 @Component({

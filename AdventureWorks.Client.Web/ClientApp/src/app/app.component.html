@@ -10,3 +10,11 @@
     <router-outlet></router-outlet>
   </section>
 </body>
+
+
+<div class="toast" [ngClass]="toast.style" *ngIf="toast.show">
+  <button class="toast__close" (click)="dismissToast()">X</button>
+  <div class="toast__message">
+    {{toast.message}}
+  </div>
+</div>

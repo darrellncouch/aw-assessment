@@ -1,6 +1,8 @@
 ﻿using AdventureWorks.Data.Common;
 using AdventureWorks.Data.DTO;
+using AdventureWorks.Data.Production.EntityFramework;
 using AdventureWorks.Data.Production.Interfaces.Query;
+using AdventureWorks.Data.Production.Interfaces.Repository;
 using AdventureWorks.Logic.Core.Interfaces;
 using AdventureWorks.Web.ServiceInterfaces;
 
@@ -11,22 +13,49 @@ namespace AdventureWorks.Logic.Core
         private readonly IProductQuery query;
         private readonly IProductModelQuery modelQuery;
         private readonly IProductReviewQuery reviewQuery;
+        private readonly IProductRepository productRepo;
         private readonly string GenericErrorMessage = "Unexpected error. Please try again or reach out to customer service.";
 
         public ProductManager(
             IProductQuery query,
             IProductModelQuery modelQuery,
-            IProductReviewQuery reviewQuery
+            IProductReviewQuery reviewQuery,
+            IProductRepository productRepo
         )
         {
             this.query = query;
             this.modelQuery = modelQuery;
             this.reviewQuery = reviewQuery;
+            this.productRepo = productRepo;
         }
 
-        public Task<Result<int>> AddProduct(ProductDto product)
+        public async Task<Result<int>> AddProduct(ProductDto product)
         {
-            throw new NotImplementedException();
+            product.Rowguid = Guid.NewGuid();
+
+            var result = await productRepo.Create(Mapper.Map<Product>(product));
+
+
+            if (result.IsFailure)
+            {
+                LogError("ProductManager/AddProduct", result.Error);
+                return Result.Fail<int>(GenericErrorMessage);
+            }
+
+            return Result.Ok(result.Value);
+        }
+
+        public async Task<Result<List<ProductModelDto>>> GetAllModels()
+        {
+            var result = await modelQuery.GetAll();
+
+            if(result.IsFailure)
+            {
+                LogError("ProductManager/GetAllModels", result.Error);
+                return Result.Fail<List<ProductModelDto>>(GenericErrorMessage);
+            }
+
+            return Result.Ok(Mapper.Map<List<ProductModelDto>>(result.Value));
         }
 
         public async Task<Result<ProductInformationDto>> GetInfoById(int productId)
@@ -49,6 +78,8 @@ namespace AdventureWorks.Logic.Core
             }
 
             var productInfo = new ProductInformationDto(details, Mapper.Map<List<ProductReviewDto>>(reviewsResult.Value));
+
+            productInfo.AverageRating = productInfo.Reviews.Count() == 0 ? null : productInfo.Reviews.Select(r => r.Rating).ToList().Sum() / productInfo.Reviews.Count();
 
             if(details.ProductModelId.HasValue) 
             {
@@ -130,6 +161,7 @@ namespace AdventureWorks.Logic.Core
             });
         }
 
+        //TODO: maybe useful if not then remove
         public async Task<Result<PagedResult<ProductDto>>> GetProducts(PagedRequest req)
         {
             var countResult = await query.GetProductCount();
@@ -164,9 +196,18 @@ namespace AdventureWorks.Logic.Core
             return Result.Ok(pagedProduct);
         }
 
-        public Task<Result> UpdateProduct(ProductDto product)
+        public async Task<Result> UpdateProduct(ProductDto product)
         {
-            throw new NotImplementedException();
+
+            var result = await productRepo.Update(Mapper.Map<Product>(product));
+
+            if(result.IsFailure) 
+            {
+                LogError("ProductManager/UpdateProducts", result.Error);
+                return Result.Fail(GenericErrorMessage);
+            }
+
+            return Result.Ok();
         }
 
         private void LogError(string origin, string error)
@@ -174,5 +215,17 @@ namespace AdventureWorks.Logic.Core
             Console.WriteLine($"{DateTimeOffset.UtcNow} - {origin}: {error}");
         }
 
+        public async Task<Result<ProductModelDto>> GetModelById(int id)
+        {
+            var result = await modelQuery.GetById(id);
+
+            if(result.IsFailure) 
+            {
+                LogError("ProductManager/GetModelById", result.Error);
+                return Result.Fail<ProductModelDto>(GenericErrorMessage);
+            }
+
+            return Result.Ok(Mapper.Map<ProductModelDto>(result.Value));
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace AdventureWorks.Web.ServiceInterfaces
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<PagedResult<Product>, PagedResult<ProductDto>>().ReverseMap();
             CreateMap<ProductModel, ProductModelDto>().ReverseMap();
-            CreateMap<ProductReview, ProductReview>().ReverseMap();
+            CreateMap<ProductReview, ProductReviewDto>().ReverseMap();
         }
     }
 }
