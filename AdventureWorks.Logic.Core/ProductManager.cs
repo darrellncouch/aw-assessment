@@ -98,6 +98,19 @@ namespace AdventureWorks.Logic.Core
             return Result.Ok(productInfo);
         }
 
+        public async Task<Result<ProductModelDto>> GetModelById(int id)
+        {
+            var result = await modelQuery.GetById(id);
+
+            if (result.IsFailure)
+            {
+                LogError("ProductManager/GetModelById", result.Error);
+                return Result.Fail<ProductModelDto>(GenericErrorMessage);
+            }
+
+            return Result.Ok(Mapper.Map<ProductModelDto>(result.Value));
+        }
+
         public async Task<Result<PagedResult<ProductSummaryDto>>> GetProductSummaries(PagedRequest req)
         {
             var countResult = await query.GetProductCount();
@@ -161,44 +174,8 @@ namespace AdventureWorks.Logic.Core
             });
         }
 
-        //TODO: maybe useful if not then remove
-        public async Task<Result<PagedResult<ProductDto>>> GetProducts(PagedRequest req)
-        {
-            var countResult = await query.GetProductCount();
-
-            if(countResult.IsFailure)
-            {
-                LogError("ProductManager/GetProducts", countResult.Error);
-                return Result.Fail<PagedResult<ProductDto>>("Unexpected error. Please try again or reach out to customer service.");
-            }
-
-            var hasNextPage = (int pageNumber) => countResult.Value - req.PageSize * (pageNumber) > 0;
-
-            if(req.PageIndex != 0 && !hasNextPage(req.PageIndex)) 
-            {
-                return Result.Fail<PagedResult<ProductDto>>("End of results");
-            }
-
-            var result = await query.GetProducts(req);
-
-            if(result.IsFailure) 
-            {
-                LogError("ProductManager/GetProducts", result.Error);
-                return Result.Fail<PagedResult<ProductDto>>("Unexpected error. Please try again or reach out to customer service.");
-            }
-
-            var pagedProduct = Mapper.Map<PagedResult<ProductDto>>(result.Value);
-            pagedProduct.PageIndex = req.PageIndex;
-            pagedProduct.HasNextPage = hasNextPage(pagedProduct.PageIndex);
-            pagedProduct.PageCount = Math.Ceiling((decimal)(countResult.Value / req.PageSize));
-            pagedProduct.TotalCount = countResult.Value;
-
-            return Result.Ok(pagedProduct);
-        }
-
         public async Task<Result> UpdateProduct(ProductDto product)
         {
-
             var result = await productRepo.Update(Mapper.Map<Product>(product));
 
             if(result.IsFailure) 
@@ -215,17 +192,5 @@ namespace AdventureWorks.Logic.Core
             Console.WriteLine($"{DateTimeOffset.UtcNow} - {origin}: {error}");
         }
 
-        public async Task<Result<ProductModelDto>> GetModelById(int id)
-        {
-            var result = await modelQuery.GetById(id);
-
-            if(result.IsFailure) 
-            {
-                LogError("ProductManager/GetModelById", result.Error);
-                return Result.Fail<ProductModelDto>(GenericErrorMessage);
-            }
-
-            return Result.Ok(Mapper.Map<ProductModelDto>(result.Value));
-        }
     }
 }

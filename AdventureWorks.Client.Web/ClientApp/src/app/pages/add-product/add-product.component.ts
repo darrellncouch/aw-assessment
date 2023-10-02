@@ -10,6 +10,7 @@ import { UiService } from 'src/app/service/ui.service';
 import { ToastType } from 'src/core/IToast';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IValidation } from 'src/core/IValidation';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -28,6 +29,7 @@ export class AddProductComponent {
 
   constructor(
     private readonly productService: ProductService,
+    private readonly router: Router,
     private readonly uiService: UiService
   ) {
     this.unsubAll = new Subject();
@@ -65,7 +67,8 @@ export class AddProductComponent {
         }),
         map(result => {
           if(!result.hasError) {
-            this.uiService.showToast(ToastType.info, "Successully created new product")
+            this.uiService.showToast(ToastType.info, "Successully created new product");
+            this.router.navigate(["product-view"], { queryParams: {id: result} })
           }
         })
         ).subscribe();

@@ -2,11 +2,6 @@
 using AdventureWorks.Data.Production.EntityFramework;
 using AdventureWorks.Data.Production.Interfaces.Query;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventureWorks.Data.Production.Query
 {

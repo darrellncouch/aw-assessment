@@ -12,7 +12,7 @@
   </div>
 
   <div class="reviews">
-    <span *ngIf="product.averageRating; else notAvailable">Ratings (Average: {{product.averageRating}})/5</span>
+    <span *ngIf="product.averageRating; else notAvailable">Ratings (Average: {{product.averageRating}}/5)</span>
     <div *ngIf="product.reviews.length == 0; else reviews" class="no-reviews">No reviews yet</div>
     <ng-template #reviews>
 
